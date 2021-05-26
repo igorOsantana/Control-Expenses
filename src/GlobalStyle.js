@@ -5,8 +5,10 @@ export default createGlobalStyle `
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
   }
-  & body {
+  & html, body {
+    height: 100%;
     background-color: #3f3f3f;
   }
   & button {
