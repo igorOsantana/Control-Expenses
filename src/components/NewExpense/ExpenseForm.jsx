@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import { ActionsNewExpense, ControlsNewExpense, ControlNewExpense } from './StyleExpenseForm.js';
+import firebase from '../../config/firebase';
 
 const ExpenseForm = props => {
+    const db = firebase.firestore();
+
     const [ enteredTitle, setEnteredTitle ] = useState('');
     const [ enteredAmount, setEnteredAmount ] = useState('');
     const [ enteredDate, setEnteredDate ] = useState('');
+    const [ loading, setLoading ] = useState( false );
 
     const titleChangeHandler = event => {
         setEnteredTitle( event.target.value );
@@ -18,6 +22,20 @@ const ExpenseForm = props => {
         setEnteredDate( event.target.value );
     };
 
+    const addNewExpenseOnDb = data => {
+        setLoading( true );
+        db.collection( 'userExpense' )
+        .add({
+            title: data.title,
+            amount: data.amount,
+            date: data.date
+        })
+        .then(() => {
+            setLoading( false );
+        })
+        .catch( error => console.log( 'error in add a new expense user', error ));
+    };
+
     const submitHandler = event => {
         event.preventDefault();
         
@@ -28,6 +46,7 @@ const ExpenseForm = props => {
         };
 
         props.onSaveExpenseData( expenseData );
+        addNewExpenseOnDb( expenseData );
 
         setEnteredTitle('');
         setEnteredAmount('');
