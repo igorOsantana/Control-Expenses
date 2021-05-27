@@ -1,9 +1,10 @@
-import { Container, LinkLogin, ButtonSubmit, Form } from './StyleFormLogin';
+import { Container, LinkLogin, Form } from './StyleFormLogin';
+import { Link, Redirect } from 'react-router-dom';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Button from '../UI/Button';
 import Spinner from '../UI/Spinner';
 import FieldsForm from './FieldsForm';
-import { Link, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 
@@ -123,9 +124,9 @@ const FormLogin = () => {
                     <Link to="/register">Cadastrar-se</Link>
                 </LinkLogin>
                 { !!loading ? <Spinner />
-                :   <ButtonSubmit type="submit">
+                :   <Button type="submit">
                         Entrar
-                    </ButtonSubmit>
+                    </Button>
                 }
             </Form>
             { useSelector( state => state.userLogin ) === true && <Redirect to='/' />}

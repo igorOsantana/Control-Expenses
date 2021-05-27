@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { ActionsNewExpense, ControlsNewExpense, ControlNewExpense } from './StyleExpenseForm.js';
+import Input from '../UI/Input';
+import Button from '../UI/Button';
 import firebase from '../../config/firebase';
 
 const ExpenseForm = props => {
@@ -58,7 +60,7 @@ const ExpenseForm = props => {
             <ControlsNewExpense>
                 <ControlNewExpense>
                     <label>Título</label>
-                    <input 
+                    <Input 
                         type="text" 
                         placeholder="Compras mercado" 
                         value={ enteredTitle }
@@ -67,7 +69,7 @@ const ExpenseForm = props => {
                 </ControlNewExpense>
                 <ControlNewExpense>
                     <label>Valor</label>
-                    <input 
+                    <Input 
                         type="number" 
                         min="0.01" 
                         step="0.01" 
@@ -78,7 +80,7 @@ const ExpenseForm = props => {
                 </ControlNewExpense>
                 <ControlNewExpense>
                     <label>Data</label>
-                    <input 
+                    <Input 
                         type="date" 
                         min="2021-01-01" 
                         max="2026-12-31" 
@@ -88,7 +90,7 @@ const ExpenseForm = props => {
                 </ControlNewExpense>
             </ControlsNewExpense>
             <ActionsNewExpense>
-                <button type="submit">Adicionar Gasto</button>
+                <Button type="submit">Adicionar Gasto</Button>
             </ActionsNewExpense>
         </form>
     );

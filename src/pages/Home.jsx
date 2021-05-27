@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Container } from './StyleHome';
+import Navbar from '../components/UI/Navbar';
 import Expenses from "../components/Expenses/Expenses";
 import NewExpense from '../components/NewExpense/NewExpense';
 import firebase from '../config/firebase';
@@ -21,10 +23,13 @@ const Home = () => {
     }, [expenses] );
 
     return (
-        <>
-            <NewExpense onAddExpense={ appExpenseHandler } />
+      <>
+        <Navbar titlePage="Início" />
+        <Container>
             <Expenses items={ expenses } />
-        </>
+            <NewExpense onAddExpense={ appExpenseHandler } />
+        </Container>
+      </>
     );
 };
 

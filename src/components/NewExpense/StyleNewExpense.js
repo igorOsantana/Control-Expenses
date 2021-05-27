@@ -5,7 +5,7 @@ export const ContainerNewExpense = styled.div`
     background-color: #1F1F1F;
     padding: 1rem;
     margin: 2rem auto;
-    width: 50rem;
+    width: min-content;
     max-width: 95%;
     border-radius: 12px;
     text-align: center;

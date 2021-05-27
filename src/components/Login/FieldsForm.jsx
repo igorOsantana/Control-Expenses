@@ -1,4 +1,5 @@
-import { Fields, Input } from './StyleFieldsForm';
+import { Fields } from './StyleFieldsForm';
+import Input from '../UI/Input';
 
 const FieldsForm = props => {
     return (

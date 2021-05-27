@@ -15,15 +15,16 @@ export const ControlNewExpense = styled.div`
         display: block;
     }
     & input {
-        font: inherit;
-        padding: 0.5rem;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        width: 20rem;
-        max-width: 100%;
+        border-color: #fff;
     }
 `;
 
 export const ActionsNewExpense = styled.div`
     text-align: right;
+
+    & button {
+        white-space : nowrap; 
+        height: min-content;
+        width: min-content;
+    }
 `;

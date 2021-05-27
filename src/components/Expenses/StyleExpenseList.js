@@ -6,6 +6,7 @@ export const ContainerExpenseList = styled.ul`
 `;
 
 export const ExpenseLiseFallBack = styled.h2`
+    margin: 2.5rem auto;
     color: white;
     text-align: center;
 `;
