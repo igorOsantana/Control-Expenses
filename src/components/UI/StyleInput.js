@@ -7,7 +7,7 @@ export const Inp = styled.input`
     border-radius: 10px;
     outline-style: none;
     transition: all .3s;
-    border: 3px solid ${ ( props => props.border ) } ;
+    border: 3px solid ${ (({ border }) => border ? border : '#fff' ) } ;
 
     &:focus {
         border: 3px solid #40015D;

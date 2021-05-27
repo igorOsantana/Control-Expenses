@@ -1,6 +1,6 @@
 import { Container, LinkLogin, Form } from './StyleFormLogin';
-import { Link, Redirect } from 'react-router-dom';
-import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '../UI/Button';
 import Spinner from '../UI/Spinner';
@@ -8,7 +8,7 @@ import FieldsForm from './FieldsForm';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 
-const FormLogin = () => {
+const FormLogin = ({ onNewUser }) => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ loading, setLoading ] = useState( false );
@@ -107,6 +107,8 @@ const FormLogin = () => {
         });
     }
 
+    const getModalToRegisterNewUser = () => onNewUser( true );
+
     return (
         <Container>
             <Form onSubmit={ submitHandler }>
@@ -120,8 +122,8 @@ const FormLogin = () => {
                 { !!errorClientSide && <small>{ messageError }</small> }
                 { !!errorServerSide && <small>Email ou senha incorretos.</small> }
                 <LinkLogin>
-                    <Link to="/recover">Esqueci minha senha</Link>
-                    <Link to="/register">Cadastrar-se</Link>
+                    <a href="#">Esqueci minha senha</a>
+                    <a href="#" onClick={ getModalToRegisterNewUser }>Cadastrar-se</a>
                 </LinkLogin>
                 { !!loading ? <Spinner />
                 :   <Button type="submit">

@@ -15,6 +15,9 @@ export const Content = styled.div`
     justify-content: space-around;
     align-items: center;
 
+    & h2 {
+        color: #90019D;
+    }
     & div {
         display: flex;
         align-items: center;
@@ -28,6 +31,6 @@ export const ButtonSignout = styled.a`
     transition: all .2s ease;
 
     &:hover {
-        opacity: .3;
+        color: #90019D;
     }
 `;

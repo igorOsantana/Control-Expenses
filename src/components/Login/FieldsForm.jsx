@@ -1,20 +1,25 @@
 import { Fields } from './StyleFieldsForm';
 import Input from '../UI/Input';
+import { useState } from 'react';
 
-const FieldsForm = props => {
+const FieldsForm = ({ setEmail, setPassword, borderColorEmail, borderColorPassword }) => {
+    const [ colorEmail, setColorEmail ] = useState( borderColorEmail );
     return (
         <Fields>
             <Input 
-                border={ props.borderColorEmail }
+                border={ colorEmail }
                 type="text" 
                 placeholder="email@exemplo.com" 
-                onChange={ event => props.setEmail( event.target.value ) } 
+                onChange={ event => {
+                    setEmail( event.target.value );
+                    setColorEmail('#40015D' );
+                }}
             />
             <Input 
-                border={ props.borderColorPassword }
+                border={ borderColorPassword }
                 type="password" 
                 placeholder="Senha" 
-                onChange={ event => props.setPassword( event.target.value ) } 
+                onChange={ event => setPassword( event.target.value ) } 
             />
         </Fields>
     );

@@ -1,7 +1,7 @@
 import { Btn } from './StyleButton';
 
 const Button = props => {
-    return <Btn type={ props.type } >{ props.children }</Btn>;
+    return <Btn { ...props } >{ props.children }</Btn>;
 };
 
 export default Button;
