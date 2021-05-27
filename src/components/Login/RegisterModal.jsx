@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const RegisterModal = ({ onNewUser }) => {
     const getBackToLogin = () => onNewUser( false );
+
     return (
         <>
             { ReactDOM.createPortal ( 

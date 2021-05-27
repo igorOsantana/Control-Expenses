@@ -11,6 +11,6 @@ export const Btn = styled.button`
     transition: all .3s ease;
 
     &:hover {
-        opacity: .6;
+        filter: brightness(85%);
     }
 `;

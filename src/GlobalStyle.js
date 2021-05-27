@@ -10,6 +10,7 @@ export default createGlobalStyle `
   & html, body {
     height: 100%;
     background-color: #3f3f3f;
+    overflow: hidden;
   }
   & button {
     cursor: pointer;

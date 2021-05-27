@@ -1,8 +1,18 @@
 import styled, { keyframes } from 'styled-components';
 
 const fade = keyframes`
-    from { opacity: 0.3; }
-    to { opacity: 1; }
+    0% { 
+        opacity: .1;
+        right: 0%;
+    }
+    50% { 
+        opacity: .1;
+        right: 25%;
+    }
+    100% { 
+        opacity: 1;
+        right: 50%;
+    }
 `;
 
 export const Backdrop = styled.div`
@@ -19,8 +29,8 @@ export const Form = styled.form`
     background-color: #4B4B4B;
     position: absolute;
     top: 10vh;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 50%;
+    transform: translateX(50%);
     z-index: 100;
     overflow: hidden;
     width: min-content;
@@ -30,7 +40,7 @@ export const Form = styled.form`
     font-size: small;
     border: 1px solid #fff;
     border-radius: 10px;
-    animation: ${ fade } .5s ease-in-out;
+    animation: ${ fade } .4s linear both;
 
     & input {
         width: 20rem;
