@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ContainerExpensesFilter = styled.div`
     color: white;
     padding: 0 1rem;
-    & label {
+    & h2 {
         font-weight: bold;
         margin-bottom: 0.5rem;
     }

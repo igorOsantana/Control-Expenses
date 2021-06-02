@@ -1,9 +1,10 @@
 import { ContainerExpenseDate, DayExpenseDate, MonthExpenseDate, YearExpenseDate } from './StyleExpenseDate.js';
 
-const ExpenseDate = props => {
-    const month = props.date.toLocaleString( 'pt-BR', { month: 'long' } );
-    const day = props.date.toLocaleString( 'pt-BR', { day: '2-digit' } );
-    const year = props.date.getFullYear();
+const ExpenseDate = ({ date }) => {
+    const dateConverted = new Date( date.split('-') );
+    const month = dateConverted.toLocaleString( 'pt-BR', { month: 'long' } );
+    const day = dateConverted.toLocaleString( 'pt-BR', { day: '2-digit' } );
+    const year = dateConverted.getFullYear();
 
     return (
         <ContainerExpenseDate>

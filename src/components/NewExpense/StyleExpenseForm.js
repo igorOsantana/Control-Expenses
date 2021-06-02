@@ -8,19 +8,26 @@ export const ControlsNewExpense = styled.div`
     text-align: left;
 `;
 
+export const TitleNewExpense = styled.div`
+    display: flex;
+    flex-wrap: nowrap;
+    margin: .5rem auto;
+    
+    & p {
+        color: #90019D;
+    }
+`;
+
 export const ControlNewExpense = styled.div`
     & label {
         font-weight: bold;
         margin-bottom: 0.5rem;
         display: block;
     }
-    & input {
-        border-color: #fff;
-    }
 `;
 
 export const ActionsNewExpense = styled.div`
-    text-align: right;
+    text-align: ${ ({ isLoading }) => isLoading ? 'center' : 'right' };
 
     & button {
         white-space : nowrap; 

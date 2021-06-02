@@ -4,25 +4,32 @@ import ExpenseList from './ExpenseList';
 import ExpenseFilter from './ExpenseFilter';
 import { ContainerExpenses } from './StyleExpenses.js';
 
-const Expenses = props => {
-    const [ filteredYear, setFilteredYear ] = useState('2021');
+const Expenses = ({ items, isLoading }) => {   
+    const [ filteredYear, setFilteredYear ] = useState('default');
 
-    const filterChangeHandler = selectedYear => {
-        setFilteredYear( selectedYear );
-    };
+    const hasExpenses = items.length > 0;
 
-    const filteredExpenses = props.items.filter( expense => {
-        return expense.date.getFullYear().toString() === filteredYear;
+    const filterChangeHandler = selectedYear => setFilteredYear( selectedYear );
+
+    const filteredExpenses = items.filter( expense => {
+        const dateConverted = new Date( expense.date.split('-') ); 
+        return dateConverted.getFullYear().toString() === filteredYear;
     });
 
     return (
         <ContainerExpenses>
             <ExpenseFilter 
+                expenses={ items }
                 selected={ filteredYear } 
                 onChangeFilter={ filterChangeHandler } 
             />
             <ExpenseChart expenses={ filteredExpenses } />
-            <ExpenseList items={ filteredExpenses } yearSelected={ filteredYear }/>
+            <ExpenseList 
+                hasExpenses={ hasExpenses }
+                isLoading={ isLoading } 
+                items={ filteredExpenses } 
+                yearSelected={ filteredYear }
+            />
         </ContainerExpenses>
     );
 }

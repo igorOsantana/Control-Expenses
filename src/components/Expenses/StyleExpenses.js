@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const ContainerExpenses = styled.div`
     padding: 1rem;
-    background-color: rgb(31, 31, 31);
-    margin: 2rem auto;
+    background-color: #000;
+    margin: 7rem auto;
     width: 50rem;
     max-width: 95%;
     border-radius: 12px;

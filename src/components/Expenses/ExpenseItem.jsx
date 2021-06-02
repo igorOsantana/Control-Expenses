@@ -6,9 +6,11 @@ const ExpenseItem = props => {
     return (
         <li>
             <ContainerExpenseItem>
-                <ExpenseDate date={ props.date } />
                 <DescriptionExpenseItem>
-                    <h2>{ props.title }</h2>
+                    <div>
+                        <ExpenseDate date={ props.date } />
+                        <h2>{ props.title }</h2>
+                    </div>
                     <PriceExpenseItem>{ price }</PriceExpenseItem>
                 </DescriptionExpenseItem>
             </ContainerExpenseItem>

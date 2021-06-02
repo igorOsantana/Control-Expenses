@@ -1,18 +1,10 @@
-import { ContainerNewExpense } from './StyleNewExpense.js';
 import ExpenseForm from './ExpenseForm';
+import { ContainerNewExpense } from './StyleNewExpense.js';
 
-const NewExpense = props => {
-    const saveExpenseDataHandler = enteredExpenseData => {
-        const expenseData = {
-            ...enteredExpenseData,
-            id: Math.random().toString()
-        };
-        props.onAddExpense( expenseData );
-    };
-
+const NewExpense = ({ onNewExpense }) => {
     return (
         <ContainerNewExpense>
-            <ExpenseForm onSaveExpenseData={ saveExpenseDataHandler } />
+            <ExpenseForm addNewExpense={ onNewExpense } />
         </ContainerNewExpense>
     );
 }

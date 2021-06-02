@@ -6,11 +6,15 @@ export const Btn = styled.button`
     height: 2.5rem;
     border-style: none;
     border-radius: 10px;
-    background-color: ${ (({ color }) => color ? color : '#40015D' ) };
+    background-color: ${ (({ color }) => color ? color : '#90019D' ) };
     color: #fff;
     transition: all .3s ease;
 
-    &:hover {
-        filter: brightness(85%);
+    &:hover:enabled {
+        filter: brightness(75%);
+    }
+    &:disabled {
+        cursor: not-allowed;
+        filter: brightness(50%);
     }
 `;

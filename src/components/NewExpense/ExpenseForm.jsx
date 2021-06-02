@@ -1,99 +1,118 @@
 import { useState } from 'react';
-import { ActionsNewExpense, ControlsNewExpense, ControlNewExpense } from './StyleExpenseForm.js';
+import { useSelector } from 'react-redux';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup'
+
+import Spinner from '../UI/Spinner';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 import firebase from '../../config/firebase';
+import { ActionsNewExpense, ControlsNewExpense, ControlNewExpense, TitleNewExpense } from './StyleExpenseForm.js';
 
-const ExpenseForm = props => {
+const ExpenseForm = ({ addNewExpense }) => {
     const db = firebase.firestore();
+    const emailUser = useSelector( state => state.email );
 
-    const [ enteredTitle, setEnteredTitle ] = useState('');
-    const [ enteredAmount, setEnteredAmount ] = useState('');
-    const [ enteredDate, setEnteredDate ] = useState('');
-    const [ loading, setLoading ] = useState( false );
+    const [ isLoading, setIsLoading ] = useState( false );
 
-    const titleChangeHandler = event => {
-        setEnteredTitle( event.target.value );
+    const INITIAL_VALUES = { 
+        title: '', 
+        amount: '',
+        date: ''
     };
+    const validationYup = Yup.object({
+        title: Yup
+            .string().min(3, 'Título deve conter ao menos 3 letras.')
+            .max(30, 'Limite de 30 letras atingido.')
+            .required( 'Campo obrigatório.' ),
+        amount: Yup
+            .number()
+            .min(0.01, 'Valor mínimo é de R$0,01.' )
+            .required( 'Campo obrigatório.' ),
+        date: Yup
+            .date()
+            .required( 'Campo obrigatório.' )
+    });
 
-    const amountChangeHandler = event => {
-        setEnteredAmount( event.target.value );
-    };
-
-    const dateChangeHandler = event => {
-        setEnteredDate( event.target.value );
+    const submitHandler = ( values, { setSubmitting, resetForm }) => {  
+        const { title, amount, date } = values;      
+        const expenseData = {
+            title: title,
+            amount: Number( amount ),
+            date: date
+        };
+        addNewExpenseOnDb( expenseData );
+        setSubmitting( false );
+        resetForm({});
     };
 
     const addNewExpenseOnDb = data => {
-        setLoading( true );
+        setIsLoading( true );
         db.collection( 'userExpense' )
         .add({
             title: data.title,
             amount: data.amount,
-            date: data.date
+            date: data.date,
+            email: emailUser
         })
         .then(() => {
-            setLoading( false );
+            setIsLoading( false );
+            addNewExpense();
         })
-        .catch( error => console.log( 'error in add a new expense user', error ));
-    };
-
-    const submitHandler = event => {
-        event.preventDefault();
-        
-        const expenseData = {
-            title: enteredTitle,
-            amount: Number( enteredAmount ),
-            date: new Date( enteredDate.split('-').join(',') )
-        };
-
-        props.onSaveExpenseData( expenseData );
-        addNewExpenseOnDb( expenseData );
-
-        setEnteredTitle('');
-        setEnteredAmount('');
-        setEnteredDate('');
+        .catch( error => {
+            setIsLoading( false );
+            console.log( 'Error in add a new expense user', error );
+        });
     };
 
     return (
-        <form onSubmit={ submitHandler }>
-            <ControlsNewExpense>
-                <ControlNewExpense>
-                    <label>Título</label>
-                    <Input 
-                        type="text" 
-                        placeholder="Compras mercado" 
-                        value={ enteredTitle }
-                        onChange={ titleChangeHandler } 
-                    />
-                </ControlNewExpense>
-                <ControlNewExpense>
-                    <label>Valor</label>
-                    <Input 
-                        type="number" 
-                        min="0.01" 
-                        step="0.01" 
-                        placeholder="R$"
-                        value={ enteredAmount }
-                        onChange={ amountChangeHandler } 
-                    />
-                </ControlNewExpense>
-                <ControlNewExpense>
-                    <label>Data</label>
-                    <Input 
-                        type="date" 
-                        min="2021-01-01" 
-                        max="2026-12-31" 
-                        value={ enteredDate }
-                        onChange={ dateChangeHandler } 
-                    />
-                </ControlNewExpense>
-            </ControlsNewExpense>
-            <ActionsNewExpense>
-                <Button type="submit">Adicionar Gasto</Button>
-            </ActionsNewExpense>
-        </form>
+        <Formik
+            initialValues={ INITIAL_VALUES }
+            validationSchema={ validationYup }
+            onSubmit={ submitHandler }
+        >
+            <Form>
+                <ControlsNewExpense>
+                    <TitleNewExpense>
+                        <h3>Nova</h3>&nbsp;
+                        <h3><p>despesa</p></h3>
+                    </TitleNewExpense>
+                    <ControlNewExpense>
+                        <label htmlFor="title">Título</label>
+                        <Input 
+                            id="title"
+                            name="title"
+                            type="text" 
+                            placeholder="Compras mercado" 
+                        />
+                    </ControlNewExpense>
+                    <ControlNewExpense>
+                        <label htmlFor="amount">Valor</label>
+                        <Input 
+                            id="amount"
+                            name="amount"
+                            type="number" 
+                            step="0.01" 
+                            placeholder="R$"
+                        />
+                    </ControlNewExpense>
+                    <ControlNewExpense>
+                        <label htmlFor="date">Data</label>
+                        <Input 
+                            id="date"
+                            name="date"
+                            type="date" 
+                        />
+                    </ControlNewExpense>
+                    </ControlsNewExpense>
+                <ActionsNewExpense isLoading={ isLoading }>
+                    { !!isLoading ? <Spinner />
+                    : <Button type="submit">Adicionar</Button> 
+                    }
+                </ActionsNewExpense>
+            </Form>
+        </Formik>
     );
-}
+};
 
 export default ExpenseForm;

@@ -4,7 +4,7 @@ export const Container = styled.header`
     width: 100%;
     height: min-content;
     background-color: #000;
-
+    position: fixed;
 `;
 
 export const Content = styled.div`

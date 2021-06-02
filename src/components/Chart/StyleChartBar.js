@@ -10,6 +10,7 @@ export const ContainerChartBar = styled.div`
 export const InnerChartBar = styled.div`
     height: 100%;
     width: 100%;
+    border: 2px solid #000;
     border-radius: 12px;
     background-color: #fff;
     overflow: hidden;
@@ -20,7 +21,7 @@ export const InnerChartBar = styled.div`
 
 export const FillChartBar = styled.div`
     height: ${ props => props.heightFill };
-    background-color: #40005d;
+    background-color: #90019D;
     width: 100%;
     transition: all 0.3s ease-out;
 `;
